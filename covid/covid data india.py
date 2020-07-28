@@ -1,0 +1,26 @@
+from bs4 import BeautifulSoup
+import requests
+url = 'https://www.worldometers.info/coronavirus/'
+r = requests.get(url)
+html = r.content
+# print(html)
+soup=BeautifulSoup(html,'html.parser')
+title=str(soup.title)
+nt=title.split()
+print('World')
+print('Live cases : ',nt[3])
+print('Total Deaths : ',nt[6])
+p = soup.find_all('tr')
+for line in p:
+    line=line.text.split()
+    if 'India' in line:
+        break
+print(" \nINDIA")
+# print(line)
+print('Place:',line[0])
+print('Total cases today:',line[2])
+print('New Cases',line[3])
+print('Deaths: ',line[4])
+print('Recovered :',line[6])
+print('Total tests Done:',line[12])
+print('Total Active cases:',line[8])
